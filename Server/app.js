@@ -10,9 +10,16 @@ import {
   getUserByEmail,
   getUserByID,
 } from "./database.js";
+import cors from "cors";
 
+const corsOptions = {
+  origin: "http://localhost:8080",
+  methods: ["POST", "GET"],
+  credentials: true,
+};
 const app = express();
 app.use(express.json());
+app.use(cors(corsOptions));
 
 app.get("/item/:id", async (req, res) => {
   const items = await getItemByI(req.params.id);
@@ -56,5 +63,5 @@ app.post("/items", async (req, res) => {
 });
 
 app.listen(8080, () => {
-  console.log("Server running on port 8080");
+  console.log("Server running on http://localhost:8080");
 });

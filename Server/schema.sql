@@ -2,7 +2,8 @@
 CREATE DATABASE userStories;
 
 USE userStories;
-
+-- para user el usario
+sudo mysql -u sanbega -p
 show tables;
 
 CREATE TABLE users (

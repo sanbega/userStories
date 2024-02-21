@@ -14,10 +14,10 @@ const pool = mysql
 export async function getItemByI(id) {
   const [rows] = await pool.query(
     `
-    SELECT item.*, shared_item.shared_with_id
+    SELECT item.*, shared_items.shared_with_id
     FROM item
-    LEFT JOIN shared_todos On item.id = shared_item.item_id
-    WHERE item.user_id= ? OR shared_item.shared_with_id = ?
+    LEFT JOIN shared_items On item.id = shared_items.item_id
+    WHERE item.user_id= ? OR shared_items.shared_with_id = ?
     `,
     [id, id]
   );
@@ -35,7 +35,7 @@ export async function getItem() {
 
 export async function getSharedItemByI(id) {
   const [rows] = await pool.query(
-    `SELECT * FROM shared_item WHERE item_id = ?`,
+    `SELECT * FROM shared_items WHERE item_id = ?`,
     [id]
   );
   return rows[0];
@@ -78,7 +78,7 @@ export async function toggleCompleted(id, value) {
 
 export async function sharedItem(todo_id, user_id, shared_with_id) {
   const [result] = await pool.query(
-    `INSERT INTO shared_item (todo_id, user_id, shared_with_id) VALUES (?, ?, ?);`,
+    `INSERT INTO shared_items (todo_id, user_id, shared_with_id) VALUES (?, ?, ?);`,
     [todo_id, user_id, shared_with_id]
   );
   return result.insertId;
@@ -86,7 +86,6 @@ export async function sharedItem(todo_id, user_id, shared_with_id) {
 
 export async function getItemById(id) {
   const [row] = await pool.query(`SELECT * FROM item WHERE id = ?`, [id]);
-  console.log(row);
   return row[0];
 }
 
