@@ -1,3 +1,8 @@
+-- esto es de ngrok
+-- ngrok http http://localhost:8080
+
+
+
 -- estas son querys 
 CREATE DATABASE userStories;
 
