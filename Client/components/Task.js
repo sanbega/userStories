@@ -14,7 +14,7 @@ import ItemModalContent from "./ItemModalContent";
 function CheckMark({ id, completed, toggleItem }) {
   async function toggle() {
     const response = await fetch(
-      `https://fa76-2800-484-387b-6600-3a32-3cb7-b11e-f335.ngrok-free.app/items/${id}`,
+      `https://2e3f-2800-484-387b-6600-8954-27f-17c9-a89.ngrok-free.app/items/${id}`,
       {
         // headers: {
         //   "x-api-key": "abcdef123456",
@@ -29,7 +29,6 @@ function CheckMark({ id, completed, toggleItem }) {
     );
     const data = await response.json();
     toggleItem(id, !completed);
-    console.log("esto es data", data);
   }
   return (
     <Pressable
@@ -69,7 +68,8 @@ export default function Task({
       `https://fa76-2800-484-387b-6600-3a32-3cb7-b11e-f335.ngrok-free.app/items/${id}`,
       {
         headers: {
-          "x-api-key": "abcdef123456",
+          // "x-api-key": "abcdef123456",
+          "Content-Type": "application/json",
         },
         method: "DELETE",
       }

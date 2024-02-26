@@ -8,10 +8,9 @@ export default function ItemModalContent({ id, title }) {
 
   const handleSubmit = async () => {
     const response = await fetch(
-      "https://fa76-2800-484-387b-6600-3a32-3cb7-b11e-f335.ngrok-free.app/items/shared_items",
+      "https://2e3f-2800-484-387b-6600-8954-27f-17c9-a89.ngrok-free.app/items/shared_items",
       {
         headers: {
-          "x-api-key": "abcdef123456",
           "Content-Type": "application/json",
         },
         method: "POST",

@@ -46,11 +46,24 @@ export async function getUserByID(id) {
   return rows[0];
 }
 
-export async function getUserByEmail(id) {
+// export async function getUserByEmail(id) {
+//   const [rows] = await pool.query(`SELECT * FROM users WHERE email = ?`, [
+//     email,
+//   ]);
+//   return rows[0];
+// }
+// export async function getUserByEmail(email) {
+//   const [rows] = await pool.query(`SELECT * FROM users WHERE email = ?`, [
+//     email,
+//   ]);
+//   return rows[0];
+// }
+
+export async function getUserByEmail(email) {
   const [rows] = await pool.query(`SELECT * FROM users WHERE email = ?`, [
     email,
   ]);
-  return rows[0];
+  return rows.length > 0 ? rows[0] : null;
 }
 
 export async function createItem(user_id, title) {
@@ -76,10 +89,21 @@ export async function toggleCompleted(id, value) {
   return result;
 }
 
-export async function sharedItem(todo_id, user_id, shared_with_id) {
+// export async function sharedItem(todo_id, user_id, shared_with_id) {
+//   const [result] = await pool.query(
+//     `INSERT INTO shared_items (todo_id, user_id, shared_with_id) VALUES (?, ?, ?);`,
+//     [todo_id, user_id, shared_with_id]
+//   );
+//   return result.insertId;
+// }
+
+export async function sharedItem(item_id, user_id, shared_with_id) {
   const [result] = await pool.query(
-    `INSERT INTO shared_items (todo_id, user_id, shared_with_id) VALUES (?, ?, ?);`,
-    [todo_id, user_id, shared_with_id]
+    `
+    INSERT INTO shared_items (item_id, user_id, shared_with_id) 
+    VALUES (?, ?, ?);
+    `,
+    [item_id, user_id, shared_with_id]
   );
   return result.insertId;
 }

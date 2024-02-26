@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { FlatList, SafeAreaView, StyleSheet, Text, View } from "react-native";
 import Task from "./components/Task";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import InputTask from "./components/InputTask";
 
 export default function App() {
   const [items, setItems] = useState([]);
@@ -13,7 +15,7 @@ export default function App() {
       // const response = await fetch("http://localhost:8080/item/1");
       // const response = await fetch("");
       const response = await fetch(
-        "https://fa76-2800-484-387b-6600-3a32-3cb7-b11e-f335.ngrok-free.app/item/1"
+        "https://2e3f-2800-484-387b-6600-8954-27f-17c9-a89.ngrok-free.app/item/1"
       );
       const data = await response.json();
       setItems(data);
@@ -43,22 +45,23 @@ export default function App() {
   }
 
   return (
-    <BottomSheetModalProvider>
-      <View style={styles.container}>
-        <SafeAreaView>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <BottomSheetModalProvider>
+        <SafeAreaView style={styles.container}>
           <FlatList
             data={items}
-            keyExtractor={(item) => item.id.toString()}
+            keyExtractor={(item, index) => `${item.id}-${index}`}
             renderItem={({ item }) => (
               <Task {...item} toggleItem={toggleItem} clearItem={clearItem} />
             )}
             ListHeaderComponent={() => <Text style={styles.title}>Today</Text>}
             contentContainerStyle={styles.contentContainerStyle}
           />
+          <InputTask items={items} setItems={setItems} />
         </SafeAreaView>
         <StatusBar style="auto" />
-      </View>
-    </BottomSheetModalProvider>
+      </BottomSheetModalProvider>
+    </GestureHandlerRootView>
   );
 }
 /* <Text>{JSON.stringify(items, null, 2)}</Text> */
